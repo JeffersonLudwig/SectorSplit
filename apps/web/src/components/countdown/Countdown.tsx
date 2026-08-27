@@ -7,7 +7,7 @@ interface TimeLeft {
   hours: number;
   minutes: number;
   seconds: number;
-  total: number; // ms
+  total: number;
 }
 
 function getTimeLeft(targetDate: string): TimeLeft {
@@ -37,17 +37,40 @@ const SESSION_LABELS: Record<string, string> = {
 };
 
 export function Countdown({ targetDate }: CountdownProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate));
+  // Start as null to avoid hydration mismatch — only calculate on client
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    if (timeLeft.total <= 0) return;
+    // Set initial value on client
+    setTimeLeft(getTimeLeft(targetDate));
 
     const interval = setInterval(() => {
       setTimeLeft(getTimeLeft(targetDate));
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [targetDate, timeLeft.total]);
+  }, [targetDate]);
+
+  // Render placeholder while server-rendering (prevents hydration mismatch)
+  if (!timeLeft) {
+    return (
+      <div className="flex gap-3 justify-center">
+        {['Dias', 'Horas', 'Min', 'Seg'].map((label) => (
+          <div
+            key={label}
+            className="flex flex-col items-center bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 min-w-[72px]"
+          >
+            <span className="text-3xl font-mono font-bold text-red-500 tabular-nums">
+              --
+            </span>
+            <span className="text-xs text-zinc-400 uppercase tracking-widest mt-1">
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   if (timeLeft.total <= 0) {
     return (
