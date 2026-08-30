@@ -236,6 +236,31 @@ SectorSplit/
 
 ## 👨‍💻 Devs
 
-- [Cleverson](https://github.com/CleversonM11)
-- [Lucas Lenhard](https://github.com/LucasRLenhard)
-- [Jefferson Ludwig](https://github.com/JeffersonLudwig)
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/CleversonM11">
+        <img src="https://github.com/CleversonM11.png" width="115px;" alt="Foto do Cleverson no GitHub"/><br>
+        <sub>
+          <b>Cleverson</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/LucasRLenhard">
+        <img src="https://github.com/LucasRLenhard.png" width="115px;" alt="Foto do Lucas no GitHub"/><br>
+        <sub>
+          <b>Lucas Lenhard</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/JeffersonLudwig">
+        <img src="https://github.com/JeffersonLudwig.png" width="115px;" alt="Foto do Jefferson no GitHub"/><br>
+        <sub>
+          <b>Jefferson Ludwig</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
