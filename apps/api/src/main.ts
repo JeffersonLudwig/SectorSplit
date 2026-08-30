@@ -14,12 +14,18 @@ async function bootstrap() {
     }),
   );
 
-  // CORS — allow Next.js dev and production origins
+  // CORS — allow any localhost port in dev, production URL in prod
   app.enableCors({
-    origin: [
-      'http://localhost:4000',
-      process.env.FRONTEND_URL || 'https://sectorsplit.vercel.app',
-    ],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, Postman, SSR)
+      if (!origin) return callback(null, true);
+      // Allow any localhost port
+      if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return callback(null, true);
+      // Allow configured production URL
+      const prodUrl = process.env.FRONTEND_URL;
+      if (prodUrl && origin === prodUrl) return callback(null, true);
+      callback(new Error(`CORS blocked: ${origin}`));
+    },
     credentials: true,
   });
 
