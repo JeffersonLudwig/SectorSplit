@@ -7,6 +7,7 @@ import { RacesModule } from './races/races.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
+import { TeamsModule } from './teams/teams.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CommentsModule } from './comments/comments.module';
     SessionsModule,
     PostsModule,
     CommentsModule,
+    TeamsModule,
   ],
 })
 export class AppModule {}

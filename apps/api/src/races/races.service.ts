@@ -21,7 +21,19 @@ export class RacesService {
       where: { slug },
       include: {
         circuit: true,
-        sessions: { orderBy: { startsAt: 'asc' } },
+        sessions: { 
+          orderBy: { startsAt: 'asc' },
+          include: {
+            results: {
+              orderBy: { position: 'asc' },
+              include: {
+                driver: {
+                  include: { team: true }
+                }
+              }
+            }
+          }
+        },
         posts: {
           take: 5,
           orderBy: { createdAt: 'desc' },

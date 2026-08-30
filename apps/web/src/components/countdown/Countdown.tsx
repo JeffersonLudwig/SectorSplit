@@ -105,5 +105,3 @@ export function Countdown({ targetDate }: CountdownProps) {
     </div>
   );
 }
-
-export { SESSION_LABELS };

@@ -3,26 +3,18 @@ import Link from 'next/link';
 import { api } from '@/lib/api';
 import { Post, Comment } from '@/types';
 import { CommentSection } from '@/components/forum/CommentSection';
+import { PostActions } from '@/components/forum/PostActions';
 
-type PostDetail = Post & {
-  _count: { comments: number };
-  comments?: Comment[];
-};
+type PostDetail = Post & { _count: { comments: number } };
 
 async function getPost(id: string): Promise<PostDetail | null> {
-  try {
-    return await api.get<PostDetail>(`/posts/${id}`);
-  } catch {
-    return null;
-  }
+  try { return await api.get<PostDetail>(`/posts/${id}`); }
+  catch { return null; }
 }
 
 async function getComments(id: string): Promise<Comment[]> {
-  try {
-    return await api.get<Comment[]>(`/posts/${id}/comments`);
-  } catch {
-    return [];
-  }
+  try { return await api.get<Comment[]>(`/posts/${id}/comments`); }
+  catch { return []; }
 }
 
 interface Props {
@@ -36,24 +28,16 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   const postDate = new Date(post.createdAt).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+    day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
   });
 
   return (
     <div className="max-w-3xl mx-auto space-y-8">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-zinc-500 text-sm">
-        <Link href={`/races/${slug}`} className="hover:text-white transition">
-          GP
-        </Link>
+        <Link href={`/races/${slug}`} className="hover:text-white transition">GP</Link>
         <span>/</span>
-        <Link href={`/races/${slug}/forum`} className="hover:text-white transition">
-          Fórum
-        </Link>
+        <Link href={`/races/${slug}/forum`} className="hover:text-white transition">Fórum</Link>
         <span>/</span>
         <span className="text-zinc-300 truncate max-w-[200px]">{post.title}</span>
       </div>
@@ -78,13 +62,19 @@ export default async function PostPage({ params }: Props) {
         </div>
 
         <h1 className="text-2xl font-bold text-white mb-4">{post.title}</h1>
+        <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap">{post.body}</div>
 
-        <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap">
-          {post.body}
-        </div>
+        {/* Edit/Delete buttons (only for author/admin — client component) */}
+        <PostActions
+          postId={post.id}
+          authorId={post.author.id}
+          initialTitle={post.title}
+          initialBody={post.body}
+          raceSlug={slug}
+        />
       </article>
 
-      {/* Comments Section */}
+      {/* Comments */}
       <CommentSection postId={id} initialComments={comments} raceSlug={slug} />
     </div>
   );

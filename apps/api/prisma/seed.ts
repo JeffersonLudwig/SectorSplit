@@ -26,7 +26,7 @@ const season2026 = [
       lengthKm: 5.278,
       lapRecordMs: 80235, // 1:20.235
       lapRecordBy: 'Charles Leclerc (2022)',
-      layoutUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Australia_track_2021.png/400px-Australia_track_2021.png',
+      layoutUrl: 'https://media.formula1.com/image/upload/f_auto/q_auto/v1677244985/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Australia_Circuit.png',
     },
     sessions: [
       { type: SessionType.PRACTICE_1, startsAt: dt('2026-03-13T01:30:00Z'), endsAt: dt('2026-03-13T02:30:00Z') },

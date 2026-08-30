@@ -1,6 +1,7 @@
 import { api } from '@/lib/api';
-import { Countdown, SESSION_LABELS } from '@/components/countdown/Countdown';
-import { RaceSession } from '@/types';
+import { RaceSession, SESSION_LABELS } from '@/types';
+import { Countdown } from '@/components/countdown/Countdown';
+import Link from 'next/link';
 
 interface NextSession extends RaceSession {
   race: {

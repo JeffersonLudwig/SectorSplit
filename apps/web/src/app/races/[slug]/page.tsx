@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { api } from '@/lib/api';
-import { Race, RaceSession, Post } from '@/types';
-import { Countdown, SESSION_LABELS } from '@/components/countdown/Countdown';
+import { Race, RaceSession, Post, SESSION_LABELS } from '@/types';
+import { Countdown } from '@/components/countdown/Countdown';
 import { PostCard } from '@/components/forum/PostCard';
+import { SessionsAccordion } from '@/components/race/SessionsAccordion';
 
 type RaceDetail = Race & {
   sessions: RaceSession[];
@@ -72,66 +73,39 @@ export default async function RacePage({ params }: Props) {
             <h2 className="text-lg font-semibold mb-4">🏁 {circuit.name}</h2>
 
             {circuit.layoutUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={circuit.layoutUrl}
-                alt={`Layout do ${circuit.name}`}
-                className="w-full max-h-48 object-contain mb-6 rounded"
-              />
+              <div className="bg-zinc-200 p-4 rounded-xl mb-6 flex justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={circuit.layoutUrl}
+                  alt={`Layout do ${circuit.name}`}
+                  className="w-full max-h-48 object-contain"
+                />
+              </div>
             )}
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[
-                { label: 'Voltas', value: circuit.laps },
-                { label: 'Comprimento', value: `${circuit.lengthKm} km` },
-                { label: 'Recorde', value: formatLapRecord(circuit.lapRecordMs ?? null) },
-                { label: 'Por', value: circuit.lapRecordBy ?? '—' },
-              ].map(({ label, value }) => (
-                <div key={label} className="bg-zinc-800 rounded-lg p-3 text-center">
-                  <p className="text-zinc-400 text-xs mb-1">{label}</p>
-                  <p className="text-white font-mono font-semibold text-sm">{value}</p>
-                </div>
-              ))}
+              <div className="bg-zinc-800/50 p-4 rounded-lg text-center">
+                <p className="text-zinc-400 text-xs uppercase">Voltas</p>
+                <p className="font-mono text-lg font-bold mt-1">{circuit.laps}</p>
+              </div>
+              <div className="bg-zinc-800/50 p-4 rounded-lg text-center">
+                <p className="text-zinc-400 text-xs uppercase">Comprimento</p>
+                <p className="font-mono text-lg font-bold mt-1">{circuit.lengthKm} km</p>
+              </div>
+              <div className="bg-zinc-800/50 p-4 rounded-lg text-center">
+                <p className="text-zinc-400 text-xs uppercase">Recorde</p>
+                <p className="font-mono text-lg font-bold mt-1">
+                  {formatLapRecord(circuit.lapRecordMs)}
+                </p>
+              </div>
+              <div className="bg-zinc-800/50 p-4 rounded-lg text-center">
+                <p className="text-zinc-400 text-xs uppercase">Por</p>
+                <p className="font-mono text-sm font-bold mt-1">{circuit.lapRecordBy || '—'}</p>
+              </div>
             </div>
           </section>
-
           {/* Sessions */}
-          <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <h2 className="text-lg font-semibold mb-4">📅 Sessões</h2>
-            <div className="space-y-2">
-              {race.sessions.map((session) => {
-                const isPast = new Date(session.startsAt) < new Date();
-                const isNext = nextSession?.id === session.id;
-                return (
-                  <div
-                    key={session.id}
-                    className={`flex items-center justify-between rounded-lg px-4 py-3 ${
-                      isNext
-                        ? 'bg-red-500/10 border border-red-500/30'
-                        : isPast
-                        ? 'opacity-50 bg-zinc-800/50'
-                        : 'bg-zinc-800'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      {isNext && <span className="text-red-500 text-xs">▶</span>}
-                      <span className="text-sm font-medium">
-                        {SESSION_LABELS[session.type]}
-                      </span>
-                    </div>
-                    <span className="text-xs text-zinc-400 font-mono">
-                      {new Date(session.startsAt).toLocaleString('pt-BR', {
-                        day: '2-digit',
-                        month: 'short',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
+          <SessionsAccordion sessions={race.sessions} nextSession={nextSession} />
         </div>
 
         {/* Right: Countdown + Forum Preview */}
@@ -140,7 +114,7 @@ export default async function RacePage({ params }: Props) {
           {nextSession && (
             <section className="bg-zinc-900 border border-red-500/20 rounded-xl p-6 text-center">
               <p className="text-zinc-400 text-xs uppercase tracking-widest mb-1">
-                {SESSION_LABELS[nextSession.type]}
+                {SESSION_LABELS[nextSession.type?.toUpperCase()] || String(nextSession.type)}
               </p>
               <p className="text-zinc-500 text-xs font-mono mb-4">
                 {new Date(nextSession.startsAt).toLocaleDateString('pt-BR')}

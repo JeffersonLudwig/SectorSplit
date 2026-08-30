@@ -21,6 +21,8 @@ export function PostForm({ raceSlug, token, existingPost, onSuccess }: PostFormP
 
   const isEditing = !!existingPost;
 
+  const [success, setSuccess] = useState(false);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -36,7 +38,10 @@ export function PostForm({ raceSlug, token, existingPost, onSuccess }: PostFormP
           { title, body },
           token,
         );
-        router.push(`/races/${raceSlug}/forum/${post.id}`);
+        setSuccess(true);
+        setTimeout(() => {
+          router.push(`/races/${raceSlug}/forum/${post.id}`);
+        }, 1200);
       }
     } catch (err: any) {
       setError(err.message || 'Erro ao salvar post');
@@ -80,6 +85,12 @@ export function PostForm({ raceSlug, token, existingPost, onSuccess }: PostFormP
         />
       </div>
 
+      {success && (
+        <div className="flex items-center gap-2 text-green-400 bg-green-500/10 border border-green-500/20 rounded-lg px-4 py-3 text-sm font-medium">
+          ✓ Tópico publicado! Redirecionando...
+        </div>
+      )}
+
       {error && (
         <p className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">
           {error}
@@ -88,7 +99,7 @@ export function PostForm({ raceSlug, token, existingPost, onSuccess }: PostFormP
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || success}
         className="w-full bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition"
       >
         {loading

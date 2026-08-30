@@ -90,8 +90,56 @@ model RaceSession {
   startsAt DateTime
   endsAt   DateTime?
 
+  results  SessionResult[]
+
   @@unique([raceId, type])
   @@map("race_sessions")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String   // e.g. "#DC0000"
+  logoUrl   String?
+  carUrl    String?
+  drivers   Driver[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("teams")
+}
+
+model Driver {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  number    Int      @unique
+  country   String
+  photoUrl  String?
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  results   SessionResult[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("drivers")
+}
+
+model SessionResult {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   RaceSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  driverId  String
+  driver    Driver      @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  position  Int
+  timeMs    Int?        // Milliseconds for fast lap/gap/total time
+  timeStr   String?     // Formatted time "+1.234s" or "1:20.332"
+  status    String?     // "Finished", "DNF", "DNS"
+  points    Float?      // Points awarded (e.g. 25, 18, 15)
+
+  @@unique([sessionId, driverId])
+  @@unique([sessionId, position])
+  @@map("session_results")
 }
 
 // ─── FORUM ───────────────────────────────────────────────────────────────────
