@@ -36,7 +36,6 @@
 - **Vercel** — deploy do front-end (CI/CD automático)
 - **Render** — deploy do back-end
 - **Neon** — PostgreSQL gerenciado (free tier)
-- **Docker Compose** — banco local para desenvolvimento
 
 ---
 
@@ -44,7 +43,7 @@
 
 ### Pré-requisitos
 - Node.js 20+
-- Docker Desktop (para PostgreSQL local)
+- Servidor PostgreSQL Local (ex: DBeaver, pgAdmin)
 - Git
 
 ### 1. Clone o repositório
@@ -54,13 +53,12 @@ git clone https://github.com/SEU_USUARIO/SectorSplit.git
 cd SectorSplit
 ```
 
-### 2. Suba o banco de dados local
+### 2. Configure o Banco de Dados
 
-```bash
-docker-compose up -d
-```
+Você precisará de um banco de dados **PostgreSQL** rodando na sua máquina na porta `5432` (ou pode usar um banco na nuvem como Supabase/Neon).
 
-> O PostgreSQL estará disponível em `localhost:5432` com usuário `sectorsplit` e senha `sectorsplit_dev`.
+- Crie um banco de dados vazio chamado `SectorSplit`.
+- Tenha em mãos o usuário e senha do seu Postgres local.
 
 ### 3. Configure o Back-end
 
@@ -230,13 +228,14 @@ SectorSplit/
 ├── apps/
 │   ├── api/          # NestJS — Back-end
 │   └── web/          # Next.js — Front-end
-├── docker-compose.yml
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 👤 Autor
+## 👨‍💻 Devs
 
-Desenvolvido por **Jefferson Ludwig** · [GitHub](https://github.com/JeffersonLudwig)
+- [Cleverson](https://github.com/CleversonM11)
+- [Lucas Lenhard](https://github.com/LucasRLenhard)
+- [Jefferson Ludwig](https://github.com/JeffersonLudwig)
