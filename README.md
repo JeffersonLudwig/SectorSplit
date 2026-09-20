@@ -2,9 +2,9 @@
 
 > Plataforma web de Fórmula 1 com calendário de etapas, contagem regressiva de sessões, visualização de dados de circuitos e fórum de debates interativo por Grande Prêmio.
 
-[![Deploy API](https://img.shields.io/badge/API-Render-46E3B7?logo=render)](https://sectorsplit-api.onrender.com)
-[![Deploy Web](https://img.shields.io/badge/Web-Vercel-black?logo=vercel)](https://sectorsplit.vercel.app)
-[![Release](https://img.shields.io/github/v/tag/SEU_USUARIO/SectorSplit?label=versão)](https://github.com/SEU_USUARIO/SectorSplit/releases)
+[![Deploy API](https://img.shields.io/badge/API-Render-46E3B7?logo=render)](https://sectorsplit.onrender.com)
+[![Deploy Web](https://img.shields.io/badge/Web-Vercel-black?logo=vercel)](https://sector-split-five.vercel.app)
+[![Release](https://img.shields.io/github/v/tag/JeffersonLudwig/SectorSplit?label=versão)](https://github.com/JeffersonLudwig/SectorSplit/releases)
 
 ---
 
@@ -12,8 +12,8 @@
 
 | Serviço | URL |
 |---|---|
-| 🌐 Front-end | https://sectorsplit.vercel.app |
-| ⚙️ API | https://sectorsplit-api.onrender.com/api |
+| 🌐 Front-end | https://sector-split-five.vercel.app |
+| ⚙️ API | https://sectorsplit.onrender.com/api |
 
 ---
 
@@ -49,7 +49,7 @@
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/SectorSplit.git
+git clone https://github.com/JeffersonLudwig/SectorSplit.git
 cd SectorSplit
 ```
 
