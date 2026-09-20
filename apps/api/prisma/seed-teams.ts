@@ -144,7 +144,7 @@ async function seedPastRacesResults() {
 
   for (const race of races) {
     for (const session of race.sessions) {
-      if (session.startsAt > now) continue;
+      // Removed future date check so all races get results for the demo
 
       // shuffle drivers randomly for each session to make it look realistic
       const shuffledDrivers = [...allDrivers].sort(() => 0.5 - Math.random());
