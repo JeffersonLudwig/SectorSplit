@@ -33,7 +33,11 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
-  console.log(`🚀 SectorSplit API running on: http://localhost:${port}/api`);
+  await app.listen(port, '0.0.0.0');
+  console.log(`🚀 SectorSplit API running on port ${port}`);
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+  console.error('❌ Failed to start server:', err);
+  process.exit(1);
+});
