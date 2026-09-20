@@ -4,7 +4,7 @@
 
 [![Deploy API](https://img.shields.io/badge/API-Render-46E3B7?logo=render)](https://sectorsplit.onrender.com)
 [![Deploy Web](https://img.shields.io/badge/Web-Vercel-black?logo=vercel)](https://sector-split-five.vercel.app)
-[![Release](https://img.shields.io/github/v/tag/JeffersonLudwig/SectorSplit?label=versão)](https://github.com/JeffersonLudwig/SectorSplit/releases)
+[![Release](https://img.shields.io/github/v/tag/JeffersonLudwig/SectorSplit?label=versão)](https://github.com/JeffersonLudwig/SectorSplit/tags)
 
 ---
 
